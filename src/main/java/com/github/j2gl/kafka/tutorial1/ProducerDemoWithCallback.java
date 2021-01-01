@@ -29,18 +29,15 @@ public class ProducerDemoWithCallback {
 
         for (int i = 0; i < 10; i++) {
             ProducerRecord<String, String> record = new ProducerRecord<>("first_topic", "Hello World! " + i);
-            producer.send(record, new Callback() {
-                @Override
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    if (e == null) {
-                        logger.info("Received new metadata. \n" +
-                            "Topic    : " + recordMetadata.topic() + "\n" +
-                            "Partition: " + recordMetadata.partition() + "\n" +
-                            "Offset   : " + recordMetadata.offset() + "\n" +
-                            "Timestamp: " + recordMetadata.timestamp() + "\n");
-                    } else {
-                        logger.error("Error while producing", e);
-                    }
+            producer.send(record, (recordMetadata, exception) -> {
+                if (exception == null) {
+                    logger.info("Received new metadata. \n" +
+                        "Topic    : " + recordMetadata.topic() + "\n" +
+                        "Partition: " + recordMetadata.partition() + "\n" +
+                        "Offset   : " + recordMetadata.offset() + "\n" +
+                        "Timestamp: " + recordMetadata.timestamp() + "\n");
+                } else {
+                    logger.error("Error while producing", exception);
                 }
             });
             producer.flush();

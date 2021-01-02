@@ -1,8 +1,6 @@
 package com.github.j2gl.kafka.tutorial1;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

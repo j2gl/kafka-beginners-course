@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class ProducerDemoWithCallback {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
 
         final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
 
@@ -26,16 +26,8 @@ public class ProducerDemoWithCallback {
         // create the producer
         final KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
-        final String topic = "first_topic";
-
         for (int i = 0; i < 10; i++) {
-
-            final String key = "id_" + i;
-            final String value = "Hello world " + i;
-
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
-
-            logger.info("Key      : " + key);
+            ProducerRecord<String, String> record = new ProducerRecord<>("first_topic", "Hello World! " + i);
             producer.send(record, (recordMetadata, exception) -> {
                 if (exception == null) {
                     logger.info("Received new metadata. \n" +
@@ -46,7 +38,7 @@ public class ProducerDemoWithCallback {
                 } else {
                     logger.error("Error while producing", exception);
                 }
-            }).get(); // Block send to make it synchronous, not for prod
+            });
             producer.flush();
         }
 

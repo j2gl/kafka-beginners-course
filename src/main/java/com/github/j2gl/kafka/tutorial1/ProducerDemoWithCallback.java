@@ -1,13 +1,13 @@
 package com.github.j2gl.kafka.tutorial1;
 
-import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 public class ProducerDemoWithCallback {
 
@@ -31,10 +31,10 @@ public class ProducerDemoWithCallback {
             producer.send(record, (recordMetadata, exception) -> {
                 if (exception == null) {
                     logger.info("Received new metadata. \n" +
-                        "Topic    : " + recordMetadata.topic() + "\n" +
-                        "Partition: " + recordMetadata.partition() + "\n" +
-                        "Offset   : " + recordMetadata.offset() + "\n" +
-                        "Timestamp: " + recordMetadata.timestamp() + "\n");
+                            "Topic    : " + recordMetadata.topic() + "\n" +
+                            "Partition: " + recordMetadata.partition() + "\n" +
+                            "Offset   : " + recordMetadata.offset() + "\n" +
+                            "Timestamp: " + recordMetadata.timestamp() + "\n");
                 } else {
                     logger.error("Error while producing", exception);
                 }

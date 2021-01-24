@@ -2,6 +2,7 @@ package com.github.j2gl.kafka.tutorial1;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -13,7 +14,7 @@ public class ProducerDemoWithKeys {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
+        final Logger logger = LoggerFactory.getLogger(ProducerDemoWithKeys.class);
 
         final String bootstrapServers = "127.0.0.1:9092";
 
@@ -39,10 +40,10 @@ public class ProducerDemoWithKeys {
             producer.send(record, (recordMetadata, exception) -> {
                 if (exception == null) {
                     logger.info("Received new metadata. \n" +
-                        "Topic    : " + recordMetadata.topic() + "\n" +
-                        "Partition: " + recordMetadata.partition() + "\n" +
-                        "Offset   : " + recordMetadata.offset() + "\n" +
-                        "Timestamp: " + recordMetadata.timestamp() + "\n");
+                            "Topic    : " + recordMetadata.topic() + "\n" +
+                            "Partition: " + recordMetadata.partition() + "\n" +
+                            "Offset   : " + recordMetadata.offset() + "\n" +
+                            "Timestamp: " + recordMetadata.timestamp() + "\n");
                 } else {
                     logger.error("Error while producing", exception);
                 }

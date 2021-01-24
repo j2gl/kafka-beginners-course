@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -28,10 +29,10 @@ public class ConsumerDemoWithThread {
 
         CountDownLatch latch = new CountDownLatch(1);
         ConsumerRunnable myConsumerRunnable = new ConsumerRunnable(
-            bootstrapServers,
-            groupId,
-            topic,
-            latch
+                bootstrapServers,
+                groupId,
+                topic,
+                latch
         );
 
         // start the Thread
@@ -66,10 +67,10 @@ public class ConsumerDemoWithThread {
         private final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class.getName());
 
         public ConsumerRunnable(
-            final String bootstrapServers,
-            final String groupId,
-            final String topic,
-            final CountDownLatch latch
+                final String bootstrapServers,
+                final String groupId,
+                final String topic,
+                final CountDownLatch latch
         ) {
             this.latch = latch;
 
